@@ -6,20 +6,16 @@
 <body>
   <iframe id="pdfFrame" style="display:none;"></iframe>
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const base64 = urlParams.get('data');
-
-    if (base64) {
-      const pdfData = "data:application/pdf;base64," + base64;
+    const pdfUrl = new URLSearchParams(window.location.search).get('url');
+    if (pdfUrl) {
       const iframe = document.getElementById("pdfFrame");
-      iframe.src = pdfData;
+      iframe.src = pdfUrl;
       iframe.onload = () => {
         iframe.contentWindow.focus();
         iframe.contentWindow.print();
       };
-    } else {
-      document.body.innerText = "No PDF data found!";
     }
   </script>
+  
 </body>
 </html>
