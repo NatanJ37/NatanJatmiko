@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Print PDF</title>
+  <title>Auto Print PDF</title>
 </head>
 <body>
-  <iframe id="pdfFrame" style="display:none;"></iframe>
   <script>
     const pdfUrl = new URLSearchParams(window.location.search).get('url');
     if (pdfUrl) {
-      const iframe = document.getElementById("pdfFrame");
-      iframe.src = pdfUrl;
-      iframe.onload = () => {
-        iframe.contentWindow.focus();
-        iframe.contentWindow.print();
-      };
+      const newTab = window.open(pdfUrl, '_blank');
+      setTimeout(() => {
+        if (newTab) newTab.focus();
+        if (newTab) newTab.print();
+      }, 3000); // kasih waktu file PDF-nya loading
+    } else {
+      document.body.innerText = "No PDF URL provided.";
     }
   </script>
-  
 </body>
 </html>
